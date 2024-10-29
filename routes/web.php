@@ -20,4 +20,6 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 Route::get('/register', [RegisteredController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredController::class, 'store']);
 
-Route::get('tasks', [TaskController::class, 'index'])->middleware('auth')->name('tasks');
+Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth')->name('tasks');
+Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth')->name('task.store');
+Route::get('/task/{id}', [TaskController::class, 'show'])->middleware('auth')->name('task');

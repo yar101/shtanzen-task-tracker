@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\Status;
+use App\Models\Task;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+//         User::factory(10)->create();
 
 //        User::factory()->create([
 //            'name' => 'Test User',
@@ -35,5 +38,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'yakimec@stnzn.ru',
             'password' => Hash::make('RedAndWhite1!'),
         ]);
+
+        # Statuses
+        Status::create(['name' => 'NOT STARTED']);
+        Status::create(['name' => 'ONGOING']);
+        Status::create(['name' => 'DONE']);
+        Status::create(['name' => 'DELAY']);
+        Status::create(['name' => 'ARCHIVED']);
+
+        # Test Tasks
+        Task::factory(10)->create();
     }
 }
