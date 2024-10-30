@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContractorController;
 use App\Http\Controllers\RegisteredController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
@@ -23,3 +24,7 @@ Route::post('/register', [RegisteredController::class, 'store']);
 Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth')->name('tasks');
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth')->name('task.store');
 Route::get('/task/{id}', [TaskController::class, 'show'])->middleware('auth')->name('task');
+
+Route::get('/contractors', [ContractorController::class, 'index'])->middleware('auth')->name('contractors');
+Route::post('/contractors', [ContractorController::class, 'store'])->middleware('auth')->name('contractor.store');
+Route::get('/contractor/{id}', [ContractorController::class, 'show'])->middleware('auth')->name('contractor');

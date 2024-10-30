@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contractor;
 use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->foreignIdFor(Status::class)->default('2');
+            $table->foreignIdFor(Contractor::class)->nullable()->default(1);
             $table->date('deadline_start')->default(now());
             $table->date('deadline_end')->nullable();
             $table->integer('cost')->default(0)->nullable();

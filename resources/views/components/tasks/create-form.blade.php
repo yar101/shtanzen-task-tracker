@@ -19,6 +19,14 @@
     <div class="bg-neutral-700 border-t border-t-neutral-500/70 text-white rounded-md rounded-b-none mb-5 w-full p-1 text-center">Создание задачи</div>
     <form action="{{ route('task.store') }}" method="post" class="flex flex-col gap-2 p-3 w-full">
         @csrf
+
+        <x-label for="contractor_id">Контрагент</x-label>
+        <select class="p-1 bg-neutral-700 rounded-md" name="contractor_id">
+            @foreach($contractors as $contractor)
+                <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+            @endforeach
+        </select>
+
         <x-label for="title">Заголовок</x-label>
         <x-input type="text" name="title" value="{{ old('title') }}"/>
 

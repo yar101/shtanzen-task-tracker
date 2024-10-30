@@ -70,7 +70,11 @@
                     {{ $task->priority }}
                 </td>
                 <td class="px-4 py-4 text-center">
-                    Пока нет
+                    @if($task->contractor_id)
+                        {{ $task->contractor->name }}
+                    @else
+                        Без контрагента
+                    @endif
                 </td>
                 <td class="px-4 py-4 text-center">
                     {{ $task->title }}

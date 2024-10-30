@@ -21,4 +21,9 @@ class Task extends Model
         $comment = $this->comment;
         return substr($comment, 0, 30);
     }
+
+    public function contractor(): BelongsTo
+    {
+        return $this->belongsTo(Contractor::class);
+    }
 }

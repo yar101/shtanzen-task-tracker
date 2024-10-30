@@ -31,7 +31,8 @@ class TaskFactory extends Factory
                 'created_at' => now(),
                 'parent_id' => null,
                 'updated_by' => null,
-                'updated_at' => null
+                'updated_at' => null,
+                'contractor_id' => 1,
         ];
     }
 }

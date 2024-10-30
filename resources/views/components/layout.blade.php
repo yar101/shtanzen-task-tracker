@@ -8,9 +8,15 @@
     <title>SHTANZEN Tasks</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if(request()->routeIs('tasks'))
+        @vite('resources/js/tasks.js')
+    @endif
+    @if(request()->routeIs('contractors'))
+        @vite('resources/js/contractors.js')
+    @endif
 </head>
 
-<body class="font-sans antialiased bg-black text-white/50">
+<body class="font-sans antialiased bg-white dark:bg-neutral-900 text-white/50">
     <main>
         {{ $slot }}
     </main>

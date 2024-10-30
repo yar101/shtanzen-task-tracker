@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contractor;
 use App\Models\Role;
 use App\Models\Status;
 use App\Models\Task;
@@ -42,11 +43,15 @@ class DatabaseSeeder extends Seeder
         # Statuses
         Status::create(['name' => 'NOT STARTED']);
         Status::create(['name' => 'ONGOING']);
+        Status::create(['name' => 'ON HOLD']);
         Status::create(['name' => 'DONE']);
         Status::create(['name' => 'DELAY']);
-        Status::create(['name' => 'ARCHIVED']);
 
         # Test Tasks
         Task::factory(10)->create();
+
+        # Null Contractor
+        Contractor::create(['name' => 'Без контрагента']);
+//        Contractor::factory(100)->create();
     }
 }
