@@ -42,4 +42,26 @@ class TaskController
         $task->save();
         return redirect()->route('tasks');
     }
+
+    public function update(Request $request, $id)
+    {
+        if (auth()->user()->role->name == 'user') {
+            $attributes = $request->validate([
+
+            ]);
+        };
+
+        $attributes = $request->validate([
+            'title' => ['required'],
+            'body' => ['required'],
+            'deadline_end' => ['required', 'date'],
+            'cost' => ['nullable', 'integer'],
+            'currency' => ['required'],
+            'comment' => ['nullable'],
+            'priority' => ['required'],
+            'contractor_id' => ['nullable']
+        ]);
+
+        $task = Task::find($id);
+    }
 }

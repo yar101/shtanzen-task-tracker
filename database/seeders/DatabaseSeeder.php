@@ -32,6 +32,9 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'user']);
         Role::create(['name' => 'head-of-department']);
 
+        # Departments
+        Department::create(['name' => 'Без отдела']);
+        Department::create(['name' => 'Оборудование']);
 
         # Create admin
         User::create([
@@ -46,13 +49,15 @@ class DatabaseSeeder extends Seeder
             'role_id' => '3', #head-of-department role id
             'email' => 'hod-otd@stnzn.ru',
             'password' => Hash::make('RedAndWhite1!'),
+            'department_id' => 2,
         ]);
 
         User::create([
-            'name' => 'man1-ob',
+            'name' => 'man1',
             'role_id' => '2', #user role id
-            'email' => 'man1-otd@stnzn.ru',
+            'email' => 'man1@stnzn.ru',
             'password' => Hash::make('RedAndWhite1!'),
+            'department_id' => 2,
         ]);
 
         # Statuses
@@ -63,14 +68,10 @@ class DatabaseSeeder extends Seeder
         Status::create(['name' => 'DELAY']);
 
         # Test Tasks
-        Task::factory(10)->create();
+//        Task::factory(10)->create();
 
         # Null Contractor
         Contractor::create(['name' => 'Без контрагента']);
 //        Contractor::factory(100)->create();
-
-        # Departments
-        Department::create(['name' => 'Без отдела']);
-        Department::create(['name' => 'Оборудование']);
     }
 }
