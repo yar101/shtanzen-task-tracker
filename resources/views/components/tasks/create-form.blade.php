@@ -39,7 +39,7 @@
         <div class="">
             <x-label for="cost">Стоимость</x-label>
             <br>
-            <x-input type="text" name="cost"/>
+            <x-input type="text" name="cost" value="{{ old('cost') }}"/>
             <select class="p-1 bg-neutral-700 rounded-md" name="currency">
                 <option value="RUB" selected>RUB</option>
                 <option value="USD">USD</option>

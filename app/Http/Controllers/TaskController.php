@@ -13,15 +13,18 @@ class TaskController
     public function index()
     {
         if (auth()->user()->role->name == 'head-of-department') {
-            $tasks = Task::all()->where('created_by', User::all()->where('department_id', '=', auth()->user()->department_id));
+            $contractors = Contractor::all();
+            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id);
+            return view('tasks.index', compact('tasks', 'contractors'));
         } else if (auth()->user()->role->name == 'admin') {
+            $contractors = Contractor::all();
             $tasks = Task::all();
+            return view('tasks.index', compact('tasks', 'contractors'));
         } else if (auth()->user()->role->name == 'user') {
+            $contractors = Contractor::all();
             $tasks = Task::all()->where('created_by', auth()->user()->id);
+            return view('tasks.index', compact('tasks', 'contractors'));
         };
-
-        $contractors = Contractor::all();
-        return view('tasks.index', compact('tasks', 'contractors'));
     }
 
     public function store(Request $request)
@@ -34,11 +37,12 @@ class TaskController
             'currency' => ['required'],
             'comment' => ['nullable'],
             'priority' => ['required'],
-            'contractor_id' => ['nullable']
+            'contractor_id' => ['nullable'],
         ]);
 
         $task = Task::create($attributes);
         $task->created_by = auth()->user()->id;
+        $task->department_id = auth()->user()->department->id;
         $task->save();
         return redirect()->route('tasks');
     }

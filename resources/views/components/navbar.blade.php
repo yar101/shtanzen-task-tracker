@@ -11,7 +11,9 @@
 
     <div class="flex flex-row gap-5">
         <x-navbar-link href="/tasks" :active="request()->routeIs('tasks')">Задачи</x-navbar-link>
-        <x-navbar-link href="/contractors" :active="request()->routeIs('contractors')">Контрагенты</x-navbar-link>
+        @if(auth()->user()->role->name == 'head-of-department')
+            <x-navbar-link href="/contractors" :active="request()->routeIs('contractors')">Контрагенты</x-navbar-link>
+        @endif
     </div>
 
     <div class="">
