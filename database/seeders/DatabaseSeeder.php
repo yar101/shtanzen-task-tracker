@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Contractor;
+use App\Models\Department;
 use App\Models\Role;
 use App\Models\Status;
 use App\Models\Task;
@@ -40,6 +41,20 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('RedAndWhite1!'),
         ]);
 
+        User::create([
+            'name' => 'hod-ob',
+            'role_id' => '3', #head-of-department role id
+            'email' => 'hod-otd@stnzn.ru',
+            'password' => Hash::make('RedAndWhite1!'),
+        ]);
+
+        User::create([
+            'name' => 'man1-ob',
+            'role_id' => '2', #user role id
+            'email' => 'man1-otd@stnzn.ru',
+            'password' => Hash::make('RedAndWhite1!'),
+        ]);
+
         # Statuses
         Status::create(['name' => 'NOT STARTED']);
         Status::create(['name' => 'ONGOING']);
@@ -53,5 +68,9 @@ class DatabaseSeeder extends Seeder
         # Null Contractor
         Contractor::create(['name' => 'Без контрагента']);
 //        Contractor::factory(100)->create();
+
+        # Departments
+        Department::create(['name' => 'Без отдела']);
+        Department::create(['name' => 'Оборудование']);
     }
 }

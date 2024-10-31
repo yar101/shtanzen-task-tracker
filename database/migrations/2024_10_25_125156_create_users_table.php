@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Department;
 use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignIdFor(Role::class)->constrained();
+            $table->foreignIdFor(Department::class)->default(1);
             $table->timestamps();
         });
 

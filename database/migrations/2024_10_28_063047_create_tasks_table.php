@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Contractor;
+use App\Models\Department;
 use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->string('currency');
             $table->text('comment')->nullable();
             $table->string('priority')->nullable();
+            $table->foreignIdFor(Department::class);
             $table->timestamps();
         });
     }
