@@ -60,6 +60,14 @@ class DatabaseSeeder extends Seeder
             'department_id' => 2,
         ]);
 
+        User::create([
+            'name' => 'man2',
+            'role_id' => '2', #user role id
+            'email' => 'man2@stnzn.ru',
+            'password' => Hash::make('RedAndWhite1!'),
+            'department_id' => 2,
+        ]);
+
         # Statuses
         Status::create(['name' => 'NOT STARTED']);
         Status::create(['name' => 'ONGOING']);
@@ -68,7 +76,7 @@ class DatabaseSeeder extends Seeder
         Status::create(['name' => 'DELAY']);
 
         # Test Tasks
-//        Task::factory(10)->create();
+        Task::factory(10)->create();
 
         # Null Contractor
         Contractor::create(['name' => 'Без контрагента']);

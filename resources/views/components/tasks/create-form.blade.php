@@ -27,6 +27,15 @@
             @endforeach
         </select>
 
+        @if(auth()->user()->role->name == 'head-of-department')
+            <x-label for="manager_id">Менеджер</x-label>
+            <select class="p-1 bg-neutral-700 rounded-md" name="manager_id">
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        @endif
+
         <x-label for="title">Заголовок</x-label>
         <x-input type="text" name="title" value="{{ old('title') }}"/>
 

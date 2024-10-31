@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -33,6 +34,8 @@ class TaskFactory extends Factory
                 'updated_by' => null,
                 'updated_at' => null,
                 'contractor_id' => 1,
+                'department_id' => 2,
+                'manager_id' => $this->faker->randomElement(User::all()->pluck('id')->toArray()),
         ];
     }
 }

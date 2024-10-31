@@ -24,6 +24,8 @@ Route::post('/register', [RegisteredController::class, 'store']);
 Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth')->name('tasks');
 Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth')->name('task.store');
 Route::get('/task/{id}', [TaskController::class, 'show'])->middleware('auth')->name('task');
+Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth')->name('task.edit');
+Route::patch('/task/{id}/edit', [TaskController::class, 'update'])->middleware('auth')->name('task.update');
 
 Route::get('/contractors', [ContractorController::class, 'index'])->middleware('auth')->name('contractors');
 Route::post('/contractors', [ContractorController::class, 'store'])->middleware('auth')->name('contractor.store');
