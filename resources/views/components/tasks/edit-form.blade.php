@@ -43,7 +43,8 @@
             <select class="p-1 bg-neutral-700 rounded-md" name="manager_id">
                 @foreach($users as $user)
                     <option
-                        value="{{ $user->id }}" {{ $task->manager_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                        value="{{ $user->id }}" {{ $task->manager_id == $user->id ? 'selected' : '' }}>{{ $user->name }}
+                    </option>
                 @endforeach
             </select>
         @endif

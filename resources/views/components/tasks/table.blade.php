@@ -42,18 +42,39 @@
         <tbody>
         @foreach($tasks as $task)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="task-status px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center
+                <th scope="row" class="task-status font-medium text-gray-900 whitespace-nowrap dark:text-white text-center
                 {{
                     match ($task->status->name) {
-                        'NOT STARTED' => 'bg-gray-200/40 text-blue-100',
-                        'ONGOING' => 'bg-blue-500/40 text-blue-100',
-                        'ON HOLD' => 'bg-yellow-500/40 text-yellow-100',
-                        'DONE' => 'bg-green-500/40 text-green-100',
-                        'DELAY' => 'bg-neutral-700/40 text-gray-200',
+                        'NOT STARTED' => 'bg-gray-200/20',
+                        'ONGOING' => 'bg-blue-500/30',
+                        'ON HOLD' => 'bg-yellow-500/40',
+                        'DONE' => 'bg-green-500/40',
+                        'DELAY' => 'bg-red-700/30',
                         }
- }}
+}}
                 ">
-                    {{ $task->status->name }}
+                    <form action="{{ route('task.status-update', $task->id) }}" method="post" class="">
+                        @csrf
+                        @method('PATCH')
+                        <select name="status_id" onchange="this.form.submit()" class="p-2 bg-transparent cursor-pointer
+                        {{
+    match ($task->status->name) {
+        'NOT STARTED' => 'text-neutral-400',
+        'ONGOING' => 'text-blue-500',
+        'ON HOLD' => 'text-yellow-400',
+        'DONE' => 'text-green-400',
+        'DELAY' => 'text-red-500',
+    }
+}}
+                        ">
+                            @foreach($statuses as $status)
+                                <option
+                                    value="{{ $status->id }}" {{ $task->status_id == $status->id ? 'selected' : '' }}>
+                                    {{ $status->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </th>
                 <td class="px-2 py-2 text-center">
                     {{ \App\Models\User::find($task->manager_id)->name }}
@@ -103,7 +124,8 @@
                     @endif
                 </td>
                 <td class="">
-                    <a href="{{ route('task.edit', $task->id) }}" class="flex justify-center m-1 bg-cyan-500/20 hover:bg-cyan-500/70 p-1 rounded">
+                    <a href="{{ route('task.edit', $task->id) }}"
+                       class="flex justify-center m-1 bg-cyan-500/20 hover:bg-cyan-500/70 p-1 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="white" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -117,3 +139,22 @@
         </tbody>
     </table>
 </div>
+
+{{--Сохранение позиции скролла--}}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Проверяем, есть ли сохраненная позиция скролла в localStorage
+        const scrollPosition = localStorage.getItem("scrollPosition");
+
+        // Если позиция есть, восстанавливаем её
+        if (scrollPosition) {
+            window.scrollTo(0, scrollPosition);
+        }
+
+        // Сохраняем текущую позицию скролла в localStorage при прокрутке страницы
+        window.addEventListener("scroll", function () {
+            localStorage.setItem("scrollPosition", window.scrollY);
+        });
+    });
+</script>

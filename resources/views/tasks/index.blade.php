@@ -9,7 +9,7 @@
             <x-tasks.create-form :contractors="$contractors" />
         @endif
 
-        <x-tasks.table :tasks="$tasks"/>
+        <x-tasks.table :tasks="$tasks" :statuses="$statuses"/>
 
     </div>
 </x-layout>

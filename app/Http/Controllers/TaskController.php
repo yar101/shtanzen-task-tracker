@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contractor;
+use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,16 +17,19 @@ class TaskController
             $contractors = Contractor::all();
             $users = User::all()->where('department_id', '=', auth()->user()->department->id);
             $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id);
-            return view('tasks.index', compact('tasks', 'contractors', 'users'));
+            $statuses = Status::all();
+            return view('tasks.index', compact('tasks', 'contractors', 'users', 'statuses'));
         } else if (auth()->user()->role->name == 'admin') {
             $users = User::all();
             $contractors = Contractor::all();
             $tasks = Task::all();
-            return view('tasks.index', compact('tasks', 'contractors'));
+            $statuses = Status::all();
+            return view('tasks.index', compact('tasks', 'contractors', 'statuses'));
         } else if (auth()->user()->role->name == 'user') {
             $contractors = Contractor::all();
             $tasks = Task::all()->where('manager_id', '=', auth()->user()->id);
-            return view('tasks.index', compact('tasks', 'contractors'));
+            $statuses = Status::all();
+            return view('tasks.index', compact('tasks', 'contractors', 'statuses'));
         };
     }
 
@@ -104,6 +108,18 @@ class TaskController
                 'priority' => ['required'],
             ]);
         }
+
+        $task->update($attributes);
+        return redirect()->route('tasks');
+    }
+
+    public function statusUpdate(Request $request, $id)
+    {
+        $task = Task::find($id);
+
+        $attributes = $request->validate([
+            'status_id' => ['required'],
+        ]);
 
         $task->update($attributes);
         return redirect()->route('tasks');
