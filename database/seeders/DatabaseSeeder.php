@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'admin',]);
         Role::create(['name' => 'user']);
         Role::create(['name' => 'head-of-department']);
+        Role::create(['name' => 'head-of-company']);
 
         # Departments
         Department::create(['name' => 'Без отдела']);

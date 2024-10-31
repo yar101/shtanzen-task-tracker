@@ -31,12 +31,15 @@
     <form action="{{ route('task.update', $task->id ) }}" method="post" class="flex flex-col gap-2 p-3 w-full">
         @csrf
         @method('PATCH')
-        {{--        <x-label for="contractor_id">Контрагент</x-label>--}}
-        {{--        <select class="p-1 bg-neutral-700 rounded-md" name="contractor_id">--}}
-        {{--            @foreach($contractors as $contractor)--}}
-        {{--                <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>--}}
-        {{--            @endforeach--}}
-        {{--        </select>--}}
+
+        @if($task->contractor_id == 1)
+                    <x-label for="contractor_id">Контрагент</x-label>
+                    <select class="p-1 bg-neutral-700 rounded-md" name="contractor_id">
+                        @foreach($contractors as $contractor)
+                            <option value="{{ $contractor->id }}" {{ $task->contractor_id == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
+                        @endforeach
+                    </select>
+        @endif
 
         @if(auth()->user()->role->name == 'head-of-department')
             <x-label for="manager_id">Менеджер</x-label>

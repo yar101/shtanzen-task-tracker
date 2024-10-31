@@ -5,7 +5,7 @@
 
         @if(auth()->user()->role->name == 'head-of-department' || auth()->user()->role->name == 'admin')
             <x-tasks.create-form :contractors="$contractors" :users="$users" />
-        @else
+        @elseif (auth()->user()->role->name == 'user')
             <x-tasks.create-form :contractors="$contractors" />
         @endif
 

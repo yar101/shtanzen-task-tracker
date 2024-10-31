@@ -24,7 +24,7 @@ class TaskController
             $contractors = Contractor::all();
             $tasks = Task::all();
             $statuses = Status::all();
-            return view('tasks.index', compact('tasks', 'contractors', 'statuses'));
+            return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
         } else if (auth()->user()->role->name == 'user') {
             $contractors = Contractor::all();
             $tasks = Task::all()->where('manager_id', '=', auth()->user()->id);
@@ -75,11 +75,13 @@ class TaskController
     {
 
         $task = Task::find($id);
-        if (auth()->user()->role->name == 'head-of-department') {
+        if (auth()->user()->role->name == 'head-of-department' || auth()->user()->role->name == 'admin') {
             $users = User::all()->where('department_id', '=', auth()->user()->department->id);
-            return view('tasks.edit', compact('task', 'users'));
-        } else {
-            return view('tasks.edit', compact('task'));
+            $contractors = Contractor::all();
+            return view('tasks.edit', compact('task', 'users', 'contractors'));
+        } elseif (auth()->user()->role->name == 'user') {
+            $contractors = Contractor::all();
+            return view('tasks.edit', compact('task', 'contractors'));
         }
     }
     public function update(Request $request, $id)
@@ -96,6 +98,7 @@ class TaskController
                 'comment' => ['nullable'],
                 'priority' => ['required'],
                 'manager_id' => ['required'],
+                'contractor_id' => ['nullable'],
             ]);
         } else if (auth()->user()->role->name == 'user') {
             $attributes = $request->validate([
@@ -106,6 +109,7 @@ class TaskController
                 'currency' => ['required'],
                 'comment' => ['nullable'],
                 'priority' => ['required'],
+                'contractor_id' => ['nullable'],
             ]);
         }
 

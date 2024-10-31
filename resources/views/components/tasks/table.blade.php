@@ -1,4 +1,4 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div class="relative overflow-x-auto sm:rounded-lg">
     <table class="w-full text-md text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -145,22 +145,3 @@
         </tbody>
     </table>
 </div>
-
-{{--Сохранение позиции скролла--}}
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Проверяем, есть ли сохраненная позиция скролла в localStorage
-        const scrollPosition = localStorage.getItem("scrollPosition");
-
-        // Если позиция есть, восстанавливаем её
-        if (scrollPosition) {
-            window.scrollTo(0, scrollPosition);
-        }
-
-        // Сохраняем текущую позицию скролла в localStorage при прокрутке страницы
-        window.addEventListener("scroll", function () {
-            localStorage.setItem("scrollPosition", window.scrollY);
-        });
-    });
-</script>
