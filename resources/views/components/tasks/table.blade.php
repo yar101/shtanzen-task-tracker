@@ -107,7 +107,13 @@
                     {{ $task->deadline_start }}
                 </td>
                 <td id="task-deadline-end" class="px-2 py-2 text-center">
-                    {{ $task->deadline_end }}
+                    <form action="{{ route('task.deadline-end-update', $task->id) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <input type="date" name="deadline_end" value="{{ $task->deadline_end }}"
+                               class="bg-transparent p-1 text-center border-none"
+                               onblur="this.form.submit()">
+                    </form>
                 </td>
                 <td class="px-2 py-2 text-center">
                     @if(strlen($task->comment) > 30)

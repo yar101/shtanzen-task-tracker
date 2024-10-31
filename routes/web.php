@@ -27,6 +27,7 @@ Route::get('/task/{id}', [TaskController::class, 'show'])->middleware('auth')->n
 Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->middleware('auth')->name('task.edit');
 Route::patch('/task/{id}/edit', [TaskController::class, 'update'])->middleware('auth')->name('task.update');
 Route::patch('/task/{id}}/status-update', [TaskController::class, 'statusUpdate'])->middleware('auth')->name('task.status-update');
+Route::patch('/task/{id}}/deadline-end-update', [TaskController::class, 'deadlineEndUpdate'])->middleware('auth')->name('task.deadline-end-update');
 
 Route::get('/contractors', [ContractorController::class, 'index'])->middleware('auth')->name('contractors');
 Route::post('/contractors', [ContractorController::class, 'store'])->middleware('auth')->name('contractor.store');

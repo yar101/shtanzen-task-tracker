@@ -124,4 +124,16 @@ class TaskController
         $task->update($attributes);
         return redirect()->route('tasks');
     }
+
+    public function deadlineEndUpdate(Request $request, $id)
+    {
+        $task = Task::find($id);
+        $attributes = $request->validate([
+            'deadline_end' => ['required', 'date'],
+        ]);
+
+        $task->update($attributes);
+        return redirect()->route('tasks');
+    }
+
 }
