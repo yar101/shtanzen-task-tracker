@@ -57,7 +57,6 @@ class TaskController
                 'priority' => ['required'],
                 'contractor_id' => ['nullable'],
                 'manager_id' => ['required'],
-//                'department_id' => ['required'],
             ]);
         }
 

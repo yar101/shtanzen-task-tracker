@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Task::class);
             $table->text('content');
-            $table->foreignIdFor(User::class, 'created_by');
+            $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->timestamps();
         });
     }

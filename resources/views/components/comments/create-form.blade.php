@@ -34,9 +34,10 @@
                         @foreach($task->comments->where('created_by', '!=', auth()->user()->id) as $comment)
                             <div class="flex flex-col gap-1 items-start space-x-2">
                                 <div class="w-fit p-2 flex-shrink-0 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-gray-800">{{ $comment->created_at->format('d.m.Y') }} - {{ \App\Models\User::find($comment->created_by)->name  }}</span>
+                                    <span class="text-sm font-medium text-gray-800">{{ \App\Models\User::find($comment->created_by)->name  }}</span>
                                 </div>
-                                <div class="bg-gray-200 p-3 rounded-lg neo-shadow max-w-xs">
+                                <div class="bg-gray-200 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
+                                    <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
                                     <p class="text-md text-gray-700">{{ $comment->content }}</p>
                                 </div>
                             </div>
@@ -44,9 +45,10 @@
 
                         @foreach($task->comments->where('created_by', auth()->user()->id) as $comment)
                             <!-- Sent message -->
-                            <div class="flex items-start justify-end space-x-2">
-                                <div class="bg-blue-500 p-3 rounded-lg neo-shadow max-w-xs">
-                                    <p class="text-md text-white">{{ $comment->content }}</p>
+                            <div class="flex items-end justify-end space-x-2">
+                                <div class="bg-blue-200/50 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
+                                    <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
+                                    <p class="text-md text-gray-700">{{ $comment->content }}</p>
                                 </div>
                             </div>
                         @endforeach

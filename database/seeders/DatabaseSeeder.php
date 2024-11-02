@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\Role;
@@ -82,5 +83,7 @@ class DatabaseSeeder extends Seeder
         # Null Contractor
         Contractor::create(['name' => 'Без контрагента']);
 //        Contractor::factory(100)->create();
+        # Comments
+        Comment::factory(100)->create();
     }
 }

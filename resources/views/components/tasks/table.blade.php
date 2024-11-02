@@ -146,9 +146,9 @@
 
                 <td class="">
                     <a href="{{ route('task.edit', $task->id) }}"
-                       class="flex justify-center">
+                       class="flex justify-center bg-[#ffde70] p-1 m-1 rounded-md h-8 w-8">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                             stroke="white" class="w-6 h-6">
+                             stroke="#000" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M16.862 3.487a2.25 2.25 0 113.182 3.182l-9.193 9.193a4.5 4.5 0 01-1.591 1.035l-3.372 1.124a.75.75 0 01-.949-.949l1.124-3.372a4.5 4.5 0 011.035-1.591l9.193-9.193z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6.75L15 2.25"/>
