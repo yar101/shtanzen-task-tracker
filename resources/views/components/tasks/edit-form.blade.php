@@ -15,7 +15,7 @@
     </div>
 @endif
 
-<div {{ $attributes->merge(['class' => 'w-full h-fit bg-neutral-800 rounded-md w-[500px] mx-auto', 'id' => 'edit-task-form']) }}>
+<div {{ $attributes->merge(['class' => 'h-fit bg-neutral-800 rounded-md w-[500px] mx-auto', 'id' => 'edit-task-form']) }}>
     {{--            <button class="bg-blue-800 text-white p-1 rounded-md w-fit mb-5">Создать задачу</button>--}}
     <div class=" flex flex-row align-middle gap-2 bg-neutral-700 border-t border-t-neutral-500/70 text-white rounded-md rounded-b-none mb-5 w-full p-1 text-center">
         <div class="bg-red-600/20 p-1 rounded-md">
@@ -82,10 +82,6 @@
             <option value="II" {{ $task->priority == 'II' ? 'selected' : '' }}>II</option>
             <option value="III" {{ $task->priority == 'III' ? 'selected' : '' }}>III</option>
         </select>
-
-        <x-label for="comment">Комментарий</x-label>
-        <textarea type="text" name="comment"
-                  class="bg-neutral-700 p-2 rounded-md h-[200px]">{{ $task->comment ?? old('comment') }}</textarea>
 
         <x-button type="submit">Сохранить</x-button>
     </form>

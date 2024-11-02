@@ -25,13 +25,12 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'manager_id')->nullable();
             $table->foreignIdFor(Status::class)->default('2');
             $table->foreignIdFor(Contractor::class)->nullable()->default(1);
-            $table->foreignIdFor(Department::class)->default(2);
+            $table->foreignIdFor(Department::class)->default(1);
             $table->date('deadline_start')->default(now());
             $table->date('deadline_end')->nullable();
             $table->bigInteger('cost')->default(0)->nullable();
             $table->foreignIdFor(Task::class, 'parent_id')->nullable();
             $table->string('currency');
-            $table->text('comment')->nullable();
             $table->string('priority')->nullable();
             $table->timestamps();
         });

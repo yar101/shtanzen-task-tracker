@@ -20,7 +20,7 @@ class TaskFactory extends Factory
     {
         return [
                 'title' => $this->faker->sentence(),
-                'body' => $this->faker->paragraph(),
+                'body' => $this->faker->paragraph(2),
                 'status_id' => $this->faker->numberBetween(1, 5),
                 'created_by' => 1,
                 'cost' => $this->faker->numberBetween(500, 100000),
@@ -28,7 +28,6 @@ class TaskFactory extends Factory
                 'deadline_end' => $this->faker->dateTime(),
                 'currency' => 'RUB',
                 'priority' => $this->faker->randomElement(['I', 'II', 'III']),
-                'comment' => $this->faker->sentence(),
                 'created_at' => now(),
                 'parent_id' => null,
                 'updated_by' => null,

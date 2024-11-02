@@ -2,7 +2,7 @@
     <table class="w-full text-md text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <th scope="col" class="px-2 py-2 text-center">
+            <th scope="col" class="px-2 py-2 text-center w-[150px]">
                 Статус
             </th>
             <th scope="col" class="px-2 py-2 text-center">
@@ -19,7 +19,7 @@
                 Тема
             </th>
 
-            <th scope="col" class="px-2 py-2 text-center">
+            <th scope="col" class="px-2 py-2 text-center w-fit">
                 Задача
             </th>
 
@@ -32,7 +32,10 @@
             </th>
 
             <th scope="col" class="px-2 py-2 text-center">
-                Комментарий
+                Последний комментарий
+            </th>
+
+            <th scope="col" class="px-2 py-2 text-center">
             </th>
 
             <th scope="col" class="px-2 py-2 text-center">
@@ -53,7 +56,7 @@
                         }
 }}
                 ">
-                    <form action="{{ route('task.status-update', $task->id) }}" method="post" class="">
+                    <form action="{{ route('task.status-update', $task->id) }}" method="post" class="w-[100px]">
                         @csrf
                         @method('PATCH')
                         <select name="status_id" onchange="this.form.submit()" class="p-2 bg-transparent cursor-pointer
@@ -79,7 +82,7 @@
                 <td class="px-2 py-2 text-center">
                     {{ \App\Models\User::find($task->manager_id)->name }}
                 </td>
-                <td class="px-2 py-2 text-center
+                <td class="px-2 py-2 text-center w-[70px]
                 {{
                     match ($task->priority) {
                         'I' => 'bg-red-500/40 text-red-100',
@@ -97,10 +100,10 @@
                         Без контрагента
                     @endif
                 </td>
-                <td class="px-2 py-2 text-center">
+                <td class="px-2 py-2 text-center w-[200px]">
                     {{ $task->title }}
                 </td>
-                <td class="px-2 py-2 text-center">
+                <td class="px-2 py-2 text-center w-[500px]">
                     {{ $task->body }}
                 </td>
                 <td class="px-2 py-2 text-center">
@@ -116,22 +119,34 @@
                     </form>
                 </td>
                 <td class="px-2 py-2 text-center">
-                    @if(strlen($task->comment) > 30)
-                        <details class="w-full">
-                            <summary class="cursor-pointer text-cyan-300 select-none hover:underline">
-                                {{ $task->cutComment() }}...
-                            </summary>
-                            <div class="break-words">
-                                {{ $task->comment }}
-                            </div>
-                        </details>
+                    @if($task->comments->count() > 0)
+                        {{ $task->comments->last()->content }}
                     @else
-                        {{ $task->comment }}
+                        <div class="flex flex-col gap-1">
+                            -
+                        </div>
                     @endif
                 </td>
+
+                <td>
+                    <button class="bg-blue-100 text-white rounded-md p-1 hover:bg-blue-200 h-8 w-8"
+                            onclick="openModal('modelConfirm-{{ $task->id }}')">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M10 9H17M10 13H17M7 9H7.01M7 13H7.01M21 20L17.6757 18.3378C17.4237 18.2118 17.2977 18.1488 17.1656 18.1044C17.0484 18.065 16.9277 18.0365 16.8052 18.0193C16.6672 18 16.5263 18 16.2446 18H6.2C5.07989 18 4.51984 18 4.09202 17.782C3.71569 17.5903 3.40973 17.2843 3.21799 16.908C3 16.4802 3 15.9201 3 14.8V7.2C3 6.07989 3 5.51984 3.21799 5.09202C3.40973 4.71569 3.71569 4.40973 4.09202 4.21799C4.51984 4 5.0799 4 6.2 4H17.8C18.9201 4 19.4802 4 19.908 4.21799C20.2843 4.40973 20.5903 4.71569 20.782 5.09202C21 5.51984 21 6.0799 21 7.2V20Z"
+                                    stroke="#1c71d8" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                    </button>
+                </td>
+
                 <td class="">
                     <a href="{{ route('task.edit', $task->id) }}"
-                       class="flex justify-center m-1 bg-cyan-500/20 hover:bg-cyan-500/70 p-1 rounded">
+                       class="flex justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="white" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -141,7 +156,21 @@
                     </a>
                 </td>
             </tr>
+            <x-comments.create-form :task="$task"/>
         @endforeach
         </tbody>
     </table>
 </div>
+
+<script type="text/javascript">
+    window.openModal = function (modalId) {
+        document.getElementById(modalId).style.display = 'block'
+        document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
+    }
+
+    window.closeModal = function (modalId) {
+        document.getElementById(modalId).style.display = 'none'
+        document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden')
+    }
+
+</script>

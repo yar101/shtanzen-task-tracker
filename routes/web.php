@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContractorController;
 use App\Http\Controllers\RegisteredController;
 use App\Http\Controllers\SessionController;
@@ -32,3 +33,5 @@ Route::patch('/task/{id}}/deadline-end-update', [TaskController::class, 'deadlin
 Route::get('/contractors', [ContractorController::class, 'index'])->middleware('auth')->name('contractors');
 Route::post('/contractors', [ContractorController::class, 'store'])->middleware('auth')->name('contractor.store');
 Route::get('/contractor/{id}', [ContractorController::class, 'show'])->middleware('auth')->name('contractor');
+
+Route::post('/comment/store', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
