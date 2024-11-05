@@ -87,7 +87,7 @@ class DatabaseSeeder extends Seeder
         Status::create(['name' => 'DELAY']);
 
         # Test Tasks
-        Task::factory(3)->create();
+        Task::factory(10)->create();
 
         # Null Contractor
         Contractor::create(['name' => 'Без контрагента']);

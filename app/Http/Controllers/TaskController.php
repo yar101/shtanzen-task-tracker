@@ -16,16 +16,29 @@ class TaskController
     {
         $statuses = Status::all();
         $contractors = Contractor::all();
-        $users = User::all()->where('department_id', '=', auth()->user()->department->id);
-        $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->sortBy('created_at');
+        $users = User::where('department_id', auth()->user()->department->id)->get();
+        $tasks = Task::where('department_id', auth()->user()->department->id);
 
-        if ($request['filter-user'] == 'tasks-all') {
-            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->sortBy('created_at');
-        } else if ($request['filter-user'] != null) {
-            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->where('manager_id', '=', $request['filter-user']);
-        } else if ($request['filter-user'] == null) {
-            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->sortBy('created_at');
+        // Фильтрация по пользователю
+        if ($request['filter-user'] && $request['filter-user'] !== 'tasks-all') {
+            $tasks = $tasks->where('manager_id', $request['filter-user']);
         }
+
+        // Фильтрация по дате
+        if ($request['filter-start-date'] && $request['filter-end-date']) {
+            $startDate = Carbon::parse($request['filter-start-date']);
+            $endDate = Carbon::parse($request['filter-end-date']);
+            $tasks = $tasks->whereDate('deadline_end', '>=', $startDate)->whereDate('deadline_end', '<=', $endDate);
+        } elseif (!$request['filter-start-date'] && $request['filter-end-date']) {
+            $endDate = Carbon::parse($request['filter-end-date']);
+            $tasks = $tasks->whereDate('deadline_end', '<=', $endDate);
+        } elseif ($request['filter-start-date'] && !$request['filter-end-date']) {
+            $startDate = Carbon::parse($request['filter-start-date']);
+            $tasks = $tasks->whereDate('deadline_end', '>=', $startDate);
+        }
+
+        // Получаем задачи с сортировкой
+        $tasks = $tasks->orderBy('created_at')->get();
 
         return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
     }
@@ -147,19 +160,6 @@ class TaskController
 
         $task->update($attributes);
         return redirect()->route('tasks');
-    }
-
-    public function filter(Request $request)
-    {
-        $filter = $request['filter'];
-
-        if ($filter == 'tasks-all') {
-            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id);
-        } else {
-            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->where('manager_id', '=', $filter);
-        }
-
-        return view('tasks.index', compact('tasks'));
     }
 
     public function refreshLock(Request $request, $id)
