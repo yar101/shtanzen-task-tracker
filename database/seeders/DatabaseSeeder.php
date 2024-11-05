@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         # Departments
         Department::create(['name' => 'Без отдела']);
         Department::create(['name' => 'Оборудование']);
+        Department::create(['name' => 'Логистика']);
 
         # Create admin
         User::create([
@@ -68,6 +69,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'man2@stnzn.ru',
             'password' => Hash::make('RedAndWhite1!'),
             'department_id' => 2,
+        ]);
+
+        User::create([
+           'name' => 'man3',
+           'role_id' => '2', #user role id
+           'email' => 'man3@stnzn.ru',
+           'password' => Hash::make('RedAndWhite1!'),
+           'department_id' => 3,
         ]);
 
         # Statuses

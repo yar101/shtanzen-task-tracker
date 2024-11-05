@@ -31,28 +31,29 @@
                     <!-- Chat messages area -->
                     <div class="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4">
                         <!-- Received message -->
-                        @foreach($task->comments->where('created_by', '!=', auth()->user()->id) as $comment)
-                            <div class="flex flex-col gap-1 items-start space-x-2">
-                                <div class="w-fit p-2 flex-shrink-0 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-gray-800">{{ \App\Models\User::find($comment->created_by)->name  }}</span>
+                        @foreach($task->comments->sortBy('created_at') as $comment)
+                            @if ($comment->created_by != auth()->user()->id)
+                                <div class="flex flex-col gap-1 items-start space-x-2">
+                                    <div class="w-fit p-2 flex-shrink-0 flex items-center justify-center">
+                                        <span class="text-sm font-medium text-gray-800">{{ \App\Models\User::find($comment->created_by)->name  }}</span>
+                                    </div>
+                                    <div class="bg-gray-200 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
+                                        <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
+                                        <p class="text-md text-gray-700">{{ $comment->content }}</p>
+                                    </div>
                                 </div>
-                                <div class="bg-gray-200 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
-                                    <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
-                                    <p class="text-md text-gray-700">{{ $comment->content }}</p>
-                                </div>
-                            </div>
-                        @endforeach
+                            @endif
 
-                        @foreach($task->comments->where('created_by', auth()->user()->id) as $comment)
                             <!-- Sent message -->
-                            <div class="flex items-end justify-end space-x-2">
-                                <div class="bg-blue-200/50 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
-                                    <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
-                                    <p class="text-md text-gray-700">{{ $comment->content }}</p>
+                            @if ($comment->created_by == auth()->user()->id)
+                                <div class="flex items-end justify-end space-x-2">
+                                    <div class="bg-blue-200/50 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
+                                        <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
+                                        <p class="text-md text-gray-700">{{ $comment->content }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
-
                     </div>
 
                     <!-- Message input area -->

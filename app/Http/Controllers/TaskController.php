@@ -8,10 +8,11 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use function Sodium\add;
 
 class TaskController
 {
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->role->name == 'head-of-department') {
             $contractors = Contractor::all();
@@ -26,10 +27,11 @@ class TaskController
             $statuses = Status::all();
             return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
         } else if (auth()->user()->role->name == 'user') {
+            $users = User::all()->where('department_id', '=', auth()->user()->department->id);
             $contractors = Contractor::all();
             $tasks = Task::all()->where('manager_id', '=', auth()->user()->id);
             $statuses = Status::all();
-            return view('tasks.index', compact('tasks', 'contractors', 'statuses'));
+            return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
         };
     }
 
@@ -138,5 +140,4 @@ class TaskController
         $task->update($attributes);
         return redirect()->route('tasks');
     }
-
 }

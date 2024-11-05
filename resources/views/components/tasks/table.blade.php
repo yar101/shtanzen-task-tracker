@@ -1,3 +1,5 @@
+<x-tasks.filters :users="$users" />
+
 <div class="relative overflow-x-auto sm:rounded-lg">
     <table class="w-full text-md text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -61,14 +63,14 @@
                         @method('PATCH')
                         <select name="status_id" onchange="this.form.submit()" class="p-2 bg-transparent cursor-pointer
                         {{
-    match ($task->status->name) {
-        'NOT STARTED' => 'text-neutral-400',
-        'ONGOING' => 'text-blue-500',
-        'ON HOLD' => 'text-yellow-400',
-        'DONE' => 'text-green-400',
-        'DELAY' => 'text-red-500',
-    }
-}}
+                            match ($task->status->name) {
+                                'NOT STARTED' => 'text-neutral-400',
+                                'ONGOING' => 'text-blue-500',
+                                'ON HOLD' => 'text-yellow-400',
+                                'DONE' => 'text-green-400',
+                                'DELAY' => 'text-red-500',
+                            }
+                        }}
                         ">
                             @foreach($statuses as $status)
                                 <option
