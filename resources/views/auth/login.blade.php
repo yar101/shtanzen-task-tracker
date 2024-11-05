@@ -1,15 +1,18 @@
 <x-layout>
     <div class="w-full mt-52">
-        <form action="/login" method="post" class="flex flex-col gap-5 w-[400px] mx-auto bg-neutral-900 p-8 rounded-lg">
+        <form action="/login" method="post"
+              class="flex flex-col gap-5 w-[320px] mx-auto bg-neutral-100 p-3 rounded-md shadow-xl text-neutral-800">
             @csrf
-            <div class="flex justify-center text-lg font-bold text-blue-300">
+            <div class="flex justify-center text-lg font-bold text-neutral-800">
                 Вход
             </div>
-            <div class="flex flex-row justify-center mb-2 w-full">
-                @error('login')
-                    <p class="text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
+            @if($errors->any())
+                <div class="flex flex-row justify-center mb-2 w-full bg-red-100 rounded-md">
+                    <span class="text-red-600 p-2">
+                        {{ $errors->first() }}
+                    </span>
+                </div>
+            @endif
             <x-form-field class="">
                 <x-label for="name">Имя</x-label>
                 <x-input type="text" name="name"></x-input>

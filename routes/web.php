@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContractorController;
 use App\Http\Controllers\RegisteredController;
@@ -36,3 +37,9 @@ Route::post('/contractors', [ContractorController::class, 'store'])->middleware(
 Route::get('/contractor/{id}', [ContractorController::class, 'show'])->middleware('auth')->name('contractor');
 
 Route::post('/comment/store', [CommentController::class, 'store'])->middleware('auth')->name('comment.store');
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware('auth')->name('admin.index');
+Route::get('/admin/tasks', [AdminController::class, 'tasks'])->middleware('auth')->name('admin.tasks');
+Route::get('/admin/contractors', [AdminController::class, 'contractors'])->middleware('auth')->name('admin.contractors');
+
+Route::get('/admin/create_test_user', [AdminController::class, 'createTestUser'])->middleware('auth')->name('admin.create-test-user');

@@ -1,4 +1,4 @@
-<div id="modelConfirm-{{ $task->id }}" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+<div id="modelConfirm-{{ $task->id }}" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
     <div class="relative top-40 mx-auto shadow-xl rounded-md bg-gray-100 max-w-5xl">
 
         <div class="flex justify-end p-2">
@@ -35,11 +35,18 @@
                             @if ($comment->created_by != auth()->user()->id)
                                 <div class="flex flex-col gap-1 items-start space-x-2">
                                     <div class="w-fit p-2 flex-shrink-0 flex items-center justify-center">
-                                        <span class="text-sm font-medium text-gray-800">{{ \App\Models\User::find($comment->created_by)->name  }}</span>
+                                        <span class="text-sm font-medium text-start text-gray-800">{{ \App\Models\User::find($comment->created_by)->name  }}</span>
                                     </div>
                                     <div class="bg-gray-200 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
-                                        <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
-                                        <p class="text-md text-gray-700">{{ $comment->content }}</p>
+                                        <span class="text-sm text-gray-500 flex justify-between gap-20">
+                                            <span>
+                                                {{ $comment->created_at->format('d.m.Y') }}
+                                            </span>
+                                            <span>
+                                                {{ $comment->created_at->format('H:i') }}
+                                            </span>
+                                        </span>
+                                        <p class="text-md text-gray-700 text-start">{{ $comment->content }}</p>
                                     </div>
                                 </div>
                             @endif
@@ -48,8 +55,15 @@
                             @if ($comment->created_by == auth()->user()->id)
                                 <div class="flex items-end justify-end space-x-2">
                                     <div class="bg-blue-200/50 p-3 rounded-lg neo-shadow max-w-xl flex flex-col gap-2">
-                                        <span class="text-sm text-gray-500 text-end">{{ $comment->created_at->format('d.m.Y') }}</span>
-                                        <p class="text-md text-gray-700">{{ $comment->content }}</p>
+                                        <span class="text-sm text-gray-500 flex justify-between gap-20">
+                                            <span>
+                                                {{ $comment->created_at->format('d.m.Y') }}
+                                            </span>
+                                            <span>
+                                                {{ $comment->created_at->format('H:i') }}
+                                            </span>
+                                        </span>
+                                        <p class="text-md text-gray-700 text-start">{{ $comment->content }}</p>
                                     </div>
                                 </div>
                             @endif

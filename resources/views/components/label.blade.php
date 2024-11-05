@@ -1,1 +1,1 @@
-<label class="font-bold text-sm" {{ $attributes }}>{{ $slot }}</label>
+<label class="font-bold text-sm text-neutral-900" {{ $attributes }}>{{ $slot }}</label>

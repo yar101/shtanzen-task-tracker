@@ -14,12 +14,16 @@
     @if(request()->routeIs('contractors'))
         @vite('resources/js/contractors.js')
     @endif
+
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased bg-neutral-200 text-neutral-900">
-    <main>
-        {{ $slot }}
-    </main>
+<main>
+    {{ $slot }}
+</main>
+
+@livewireScripts
 </body>
 
 </html>

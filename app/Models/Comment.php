@@ -18,7 +18,7 @@ class Comment extends Model
 
     public function created_by(): BelongsTo
     {
-//        $name = $this->belongsTo(User::class)->first()->name;
+//        $name = $this->belongsTo(UserComponent::class)->first()->name;
         return $this->belongsTo(User::class);
     }
 }
