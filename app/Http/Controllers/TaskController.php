@@ -7,32 +7,25 @@ use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use function Sodium\add;
 
 class TaskController
 {
     public function index(Request $request)
     {
-        if (auth()->user()->role->name == 'head-of-department') {
-            $contractors = Contractor::all();
-            $users = User::all()->where('department_id', '=', auth()->user()->department->id);
-            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id);
-            $statuses = Status::all();
-            return view('tasks.index', compact('tasks', 'contractors', 'users', 'statuses'));
-        } else if (auth()->user()->role->name == 'admin') {
-            $users = User::all();
-            $contractors = Contractor::all();
-            $tasks = Task::all();
-            $statuses = Status::all();
-            return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
-        } else if (auth()->user()->role->name == 'user') {
-            $users = User::all()->where('department_id', '=', auth()->user()->department->id);
-            $contractors = Contractor::all();
-            $tasks = Task::all()->where('manager_id', '=', auth()->user()->id);
-            $statuses = Status::all();
-            return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
-        };
+        $statuses = Status::all();
+        $contractors = Contractor::all();
+        $users = User::all()->where('department_id', '=', auth()->user()->department->id);
+        $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->sortBy('created_at');
+
+        if ($request['filter-user'] == 'tasks-all') {
+            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->sortBy('created_at');
+        } else if ($request['filter-user'] != null) {
+            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->where('manager_id', '=', $request['filter-user']);
+        } else if ($request['filter-user'] == null) {
+            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->sortBy('created_at');
+        }
+
+        return view('tasks.index', compact('tasks', 'contractors', 'statuses', 'users'));
     }
 
     public function store(Request $request)
@@ -44,7 +37,6 @@ class TaskController
                 'deadline_end' => ['required', 'date'],
                 'cost' => ['nullable', 'integer'],
                 'currency' => ['required'],
-                'comment' => ['nullable'],
                 'priority' => ['required'],
                 'contractor_id' => ['nullable'],
             ]);
@@ -55,7 +47,6 @@ class TaskController
                 'deadline_end' => ['required', 'date'],
                 'cost' => ['nullable', 'integer'],
                 'currency' => ['required'],
-                'comment' => ['nullable'],
                 'priority' => ['required'],
                 'contractor_id' => ['nullable'],
                 'manager_id' => ['required'],
@@ -139,5 +130,18 @@ class TaskController
 
         $task->update($attributes);
         return redirect()->route('tasks');
+    }
+
+    public function filter(Request $request)
+    {
+        $filter = $request['filter'];
+
+        if ($filter == 'tasks-all') {
+            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id);
+        } else {
+            $tasks = Task::all()->where('department_id', '=', auth()->user()->department->id)->where('manager_id', '=', $filter);
+        }
+
+        return view('tasks.index', compact('tasks'));
     }
 }
