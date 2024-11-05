@@ -17,7 +17,8 @@
 
 <div {{ $attributes->merge(['class' => 'h-fit bg-neutral-800 rounded-md w-[500px] mx-auto', 'id' => 'edit-task-form']) }}>
     {{--            <button class="bg-blue-800 text-white p-1 rounded-md w-fit mb-5">Создать задачу</button>--}}
-    <div class=" flex flex-row align-middle gap-2 bg-neutral-700 border-t border-t-neutral-500/70 text-white rounded-md rounded-b-none mb-5 w-full p-1 text-center">
+    <div
+        class=" flex flex-row align-middle gap-2 bg-neutral-700 border-t border-t-neutral-500/70 text-white rounded-md rounded-b-none mb-5 w-full p-1 text-center">
         <div class="bg-red-600/20 p-1 rounded-md">
             <a href="/tasks" class="text-red-500 text-lg font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
@@ -33,12 +34,13 @@
         @method('PATCH')
 
         @if($task->contractor_id == 1)
-                    <x-label for="contractor_id">Контрагент</x-label>
-                    <select class="p-1 bg-neutral-700 rounded-md" name="contractor_id">
-                        @foreach($contractors as $contractor)
-                            <option value="{{ $contractor->id }}" {{ $task->contractor_id == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
-                        @endforeach
-                    </select>
+            <x-label for="contractor_id">Контрагент</x-label>
+            <select class="p-1 bg-neutral-700 rounded-md" name="contractor_id">
+                @foreach($contractors as $contractor)
+                    <option
+                        value="{{ $contractor->id }}" {{ $task->contractor_id == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
+                @endforeach
+            </select>
         @endif
 
         @if(auth()->user()->role->name == 'head-of-department')
@@ -86,3 +88,16 @@
         <x-button type="submit">Сохранить</x-button>
     </form>
 </div>
+
+<form name="refresh_lock_form" action="{{ route('task.refresh-lock', $task->id) }}" method="post">
+    @csrf
+    <input type="hidden" value={{ null }} name="locked_by">
+    <input type="hidden" value={{ null }} name="locked_at">
+    <button type="submit"></button>
+</form>
+
+<script>
+    setTimeout(() => {
+        document.refresh_lock_form.submit();
+    }, 300000);
+</script>

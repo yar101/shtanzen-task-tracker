@@ -6,7 +6,7 @@
         </span>
         <ul class="border-l-0 border-r-0 border border-red-500 p-2">
             @foreach($errors->all() as $error)
-                <li class="text-red-600">
+                <li class="flex text-red-600">
                     # {{ $error }}
                 </li>
             @endforeach

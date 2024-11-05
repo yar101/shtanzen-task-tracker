@@ -129,7 +129,7 @@
                 </td>
 
                 <td>
-                    <button class="bg-blue-100 text-white rounded-md p-1 hover:bg-blue-200 h-8 w-8"
+                    <button class="bg-blue-100 flex justify-center text-white rounded-md p-1 hover:bg-blue-200 h-8 w-8"
                             onclick="openModal('modelConfirm-{{ $task->id }}')">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

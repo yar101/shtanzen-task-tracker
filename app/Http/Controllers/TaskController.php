@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\TaskLockRefresh;
 use App\Models\Contractor;
 use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController
@@ -65,8 +67,22 @@ class TaskController
 
     public function edit($id)
     {
-
         $task = Task::find($id);
+
+        if ($task->locked_by == null) {
+
+            $task->update(['locked_by' => auth()->user()->id]);
+            $task->update(['locked_at' => now()]);
+
+            TaskLockRefresh::dispatch($task->id)->delay(now()->addMinutes(5));
+
+        } elseif ($task->locked_by != auth()->user()->id) {
+            $locked_at = Carbon::parse($task->locked_at);
+            $unlocked_at = Carbon::parse($locked_at)->addMinutes(5)->format('H:i:s');
+            $error = 'Задача редактируется пользователем ' . User::findOrFail($task->locked_by)->name . '. Блокировка спадёт в ' . $unlocked_at . '.';
+            return redirect()->route('tasks')->withErrors(['edit-locked' => $error]);
+        }
+
         if (auth()->user()->role->name == 'head-of-department' || auth()->user()->role->name == 'admin') {
             $users = User::all()->where('department_id', '=', auth()->user()->department->id);
             $contractors = Contractor::all();
@@ -106,6 +122,7 @@ class TaskController
         }
 
         $task->update($attributes);
+        $task->update(['locked_by' => null, 'locked_at' => null]);
         return redirect()->route('tasks');
     }
 
@@ -143,5 +160,12 @@ class TaskController
         }
 
         return view('tasks.index', compact('tasks'));
+    }
+
+    public function refreshLock(Request $request, $id)
+    {
+        $task = Task::find($id);
+        $task->update(['locked_by' => $request['locked_by'], 'locked_at' => $request['locked_at']]);
+        return redirect()->route('tasks');
     }
 }

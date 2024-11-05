@@ -32,6 +32,8 @@ return new class extends Migration
             $table->foreignIdFor(Task::class, 'parent_id')->nullable();
             $table->string('currency');
             $table->string('priority')->nullable();
+            $table->foreignIdFor(User::class, 'locked_by')->nullable();
+            $table->timestamp('locked_at')->nullable();
             $table->timestamps();
         });
     }
