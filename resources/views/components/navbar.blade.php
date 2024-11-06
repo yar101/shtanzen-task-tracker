@@ -2,7 +2,7 @@
     <div class="flex flex-row gap-5">
         <a href="{{ route('tasks') }}" class="font-bold text-lg text-blue-300">STANZEN /tasker /{{ auth()->user()->department->name }}</a>
         @if (request()->routeIs('tasks'))
-            <button id="create-task-button" class="text-violet-300 hover:text-violet-500 transition-colors border-violet-300 hover:border-violet-500 border px-2 rounded-md">Создать задачу</button>
+            <button id="create-task-button" onclick="openModal('create-task-form')" class="text-violet-300 hover:text-violet-500 transition-colors border-violet-300 hover:border-violet-500 border px-2 rounded-md">Создать задачу</button>
         @endif
         @if (request()->routeIs('contractors'))
             <button id="create-contractor-button" class="text-violet-300 hover:text-violet-500 transition-colors border-violet-300 hover:border-violet-500 border px-2 rounded-md">Создать контрагента</button>
