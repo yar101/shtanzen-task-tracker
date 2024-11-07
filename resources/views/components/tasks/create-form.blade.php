@@ -19,11 +19,13 @@
     <div class="w-[500px] bg-neutral-200 text-gray-900 rounded-md mx-auto">
         <div
             class="grid grid-cols-[1fr,auto] bg-neutral-200 border-t border-t-neutral-500/70 shadow-md text-gray-600 rounded-md rounded-b-none mb-5 w-full p-1 text-center">
-            <span class="text-center">Создание задачи</span>
-            <button class="flex justify-center items-center p-1 bg-red-600/30 border border-red-500/50 shadow-md text-gray-900 rounded-md h-6 w-6 hover:bg-red-600/50 transition-colors cursor-pointer" onclick="closeModal('create-task-form')">X</button>
+            <span class="text-center" id="create-task-form-header">Создание задачи</span>
+            <button class="flex justify-center items-center p-1 bg-red-600/30 border border-red-500/50 shadow-md text-gray-900 rounded-md h-6 w-6 hover:bg-red-600/50 transition-colors cursor-pointer" onclick="closeCreateTaskModal('create-task-form')">X</button>
         </div>
         <form action="{{ route('task.store') }}" method="post" class="flex flex-col gap-2 p-3 w-full">
             @csrf
+
+            <input type="hidden" value="" name="parent_id">
 
             <x-label for="contractor_id">Контрагент</x-label>
             <select class="p-1 bg-neutral-100 shadow-md border border-gray-500/50 rounded-md" name="contractor_id">
@@ -70,8 +72,8 @@
                 <option value="III" selected>III</option>
             </select>
 
-            <x-label for="comment">Комментарий</x-label>
-            <textarea type="text" name="comment" class="bg-neutral-100 shadow-md border border-gray-500/50 p-2 rounded-md"></textarea>
+{{--            <x-label for="comment">Комментарий</x-label>--}}
+{{--            <textarea type="text" name="comment" class="bg-neutral-100 shadow-md border border-gray-500/50 p-2 rounded-md"></textarea>--}}
 
             <x-button id="create-task-submit-button" type="submit">Создать</x-button>
         </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\TaskLockRefresh;
+use App\Models\Comment;
 use App\Models\Contractor;
 use App\Models\Status;
 use App\Models\Task;
@@ -54,6 +55,7 @@ class TaskController
                 'currency' => ['required'],
                 'priority' => ['required'],
                 'contractor_id' => ['nullable'],
+                'parent_id' => ['nullable'],
             ]);
         } else if (auth()->user()->role->name == 'head-of-department') {
             $attributes = $request->validate([
@@ -65,15 +67,26 @@ class TaskController
                 'priority' => ['required'],
                 'contractor_id' => ['nullable'],
                 'manager_id' => ['required'],
+                'parent_id' => ['nullable'],
             ]);
         }
 
         $task = Task::create($attributes);
+
+//        if ($request['comment']) {
+//            Comment::create([
+//                'task_id' => $task->id,
+//                'content' => $request['comment'],
+//            ]);
+//        }
+
         $task->created_by = auth()->user()->id;
         $task->department_id = auth()->user()->department->id;
-        if (auth()->user()->role->name == 'user') {
-            $task->manager_id = auth()->user()->id;
+
+        if ($request['parent_id'] != null) {
+            $task->parent_id = $request['parent_id'];
         }
+
         $task->save();
         return redirect()->route('tasks');
     }
@@ -105,6 +118,7 @@ class TaskController
             return view('tasks.edit', compact('task', 'contractors'));
         }
     }
+
     public function update(Request $request, $id)
     {
         $task = Task::find($id);

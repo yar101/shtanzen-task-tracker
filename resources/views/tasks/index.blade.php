@@ -12,7 +12,7 @@
                 <x-tasks.create-form :contractors="$contractors"/>
             @endif
 
-            <x-tasks.table :tasks="$tasks" :statuses="$statuses" :users="$users"/>
+            <x-tasks.table :tasks="$tasks" :statuses="$statuses" :users="$users" :contractors="$contractors"/>
 
         </div>
     </div>
