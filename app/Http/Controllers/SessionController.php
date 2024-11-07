@@ -22,9 +22,9 @@ class SessionController extends Controller
         $attempt = Auth::attempt($attributes);
 
         if (!$attempt) {
-            return redirect()->route('login')->withErrors([
-                'login' => 'Неверное имя пользователя или пароль'
-            ]);
+            return redirect()->route('login')->withErrors(
+                ['login' => 'Неверный логин или пароль']
+            );
         }
 
         return redirect()->route('tasks');

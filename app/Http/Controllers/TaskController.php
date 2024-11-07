@@ -85,6 +85,7 @@ class TaskController
 
         if ($request['parent_id'] != null) {
             $task->parent_id = $request['parent_id'];
+            $task->contractor_id = Task::where('id', $request['parent_id'])->first()->contractor_id;
         }
 
         $task->save();

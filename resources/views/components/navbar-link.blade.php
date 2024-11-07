@@ -3,5 +3,5 @@
 ])
 
 <div class="">
-    <a class="{{ $active ? 'text-blue-300' : 'text-neutral-400' }} cursor-pointer hover:underline hover:text-blue-300" {{$attributes}}>{{ $slot }}</a>
+    <a class="{{ $active ? 'text-black underline' : 'text-neutral-600' }} cursor-pointer hover:underline hover:text-neutral-800" {{$attributes}}>{{ $slot }}</a>
 </div>

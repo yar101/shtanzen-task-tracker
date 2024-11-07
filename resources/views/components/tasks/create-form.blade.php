@@ -1,19 +1,4 @@
-@if ($errors->any())
-    <div id="task-create-errors"
-         class="absolute bottom-5 left-5 z-10 shadow shadow-black bg-neutral-900 rounded-md border border-red-500">
-        <span class="text-red-600 font-bold p-1 text-end flex justify-between">
-            <span class="pl-1">Ошибка</span>
-            <button id="close-errors-button" class="pr-1">X</button>
-        </span>
-        <ul class="border-l-0 border-r-0 border border-red-500 p-2">
-            @foreach($errors->all() as $error)
-                <li class="flex text-red-600">
-                    # {{ $error }}
-                </li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<x-errors-window/>
 
 <div {{ $attributes->merge(['class' => 'fixed hidden z-50 inset-0 bg-neutral-800 bg-opacity-60 overflow-y-auto h-full w-full mx-auto p-20', 'id' => 'create-task-form']) }}>
     <div class="w-[500px] bg-neutral-200 text-gray-900 rounded-md mx-auto">

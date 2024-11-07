@@ -34,7 +34,7 @@
 {{--                @endforeach--}}
 {{--            </select>--}}
 
-            <select class="p-1 bg-neutral-700 rounded-md min-w-[150px]" name="filter-user">
+            <select class="p-1 shadow-md bg-neutral-300 border border-gray-500/30 text-gray-600 rounded-md min-w-[150px]" name="filter-user">
                 <option value="" disabled @if(request('filter-user') == null) selected @endif>
                     {{ request('filter-user') == null ? 'Все задачи' : $users->where('id', '=', request('filter-user'))->pluck('name')->first() }}
                 </option>
@@ -50,10 +50,10 @@
                 @endforeach
             </select>
 
-            <input type="date" name="filter-start-date" value="{{ request('filter-start-date') }}" class="p-1 bg-neutral-700 rounded-md" placeholder="Начальная дата">
-            <input type="date" name="filter-end-date" value="{{ request('filter-end-date') }}" class="p-1 bg-neutral-700 rounded-md" placeholder="Конечная дата">
+            <input type="date" name="filter-start-date" value="{{ request('filter-start-date') }}" class="p-1 bg-neutral-300 border border-gray-500/40 text-gray-600 shadow-md rounded-md" placeholder="Начальная дата">
+            <input type="date" name="filter-end-date" value="{{ request('filter-end-date') }}" class="p-1 bg-neutral-300 border border-gray-500/40 text-gray-600 shadow-md rounded-md" placeholder="Конечная дата">
 
-            <button type="submit" class="p-1 bg-amber-300 rounded-md text-gray-800 hover:bg-amber-400 transition-colors">
+            <button type="submit" class="p-1 px-6 shadow-md bg-amber-300 rounded-md text-gray-800 hover:bg-amber-400 transition-colors">
                 Отфильтровать
             </button>
         </form>

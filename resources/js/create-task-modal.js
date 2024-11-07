@@ -4,6 +4,7 @@ window.openCreateTaskModal = function (modalId, parentID =  null) {
 
     const formWrapper = document.getElementById('create-task-form');
     const formWrapperHeader = formWrapper.querySelector('#create-task-form-header');
+    const formWrapperContractorInput = formWrapper.querySelector('input[name="contractor_id"]');
 
     const parentIDInput = formWrapper.querySelector('input[name="parent_id"]');
 
