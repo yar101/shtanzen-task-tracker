@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -20,8 +22,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->foreignIdFor(Role::class)->constrained();
-            $table->foreignIdFor(Department::class)->default(1);
+            $table->foreignIdFor(Role::class, 'role_id')->default(1)->constrained();
+            $table->foreignIdFor(Department::class, 'department_id')->default(1)->constrained();
             $table->timestamps();
         });
 
@@ -39,6 +41,8 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

@@ -21,16 +21,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//         User::factory(10)->create();
+//         UserComponent::factory(10)->create();
 
-//        User::factory()->create([
-//            'name' => 'Test User',
+//        UserComponent::factory()->create([
+//            'name' => 'Test UserComponent',
 //            'email' => 'test@example.com',
 //        ]);
 
         #Create roles
-        Role::create(['name' => 'admin',]);
         Role::create(['name' => 'user']);
+        Role::create(['name' => 'admin',]);
         Role::create(['name' => 'head-of-department']);
         Role::create(['name' => 'head-of-company']);
 
@@ -42,12 +42,12 @@ class DatabaseSeeder extends Seeder
         # Create admin
         User::create([
             'name' => 'admin',
-            'role_id' => '1', #admin role id'
+            'role_id' => 2, #admin role id'
             'email' => 'yakimec@stnzn.ru',
             'password' => Hash::make('RedAndWhite1!'),
         ]);
 
-//        User::create([
+//        UserComponent::create([
 //            'name' => 'hod-ob',
 //            'role_id' => '3', #head-of-department role id
 //            'email' => 'hod-otd@stnzn.ru',
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
 //            'department_id' => 2,
 //        ]);
 
-//        User::create([
+//        UserComponent::create([
 //            'name' => 'man1',
 //            'role_id' => '2', #user role id
 //            'email' => 'man1@stnzn.ru',
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
 //            'department_id' => 2,
 //        ]);
 //
-//        User::create([
+//        UserComponent::create([
 //            'name' => 'man2',
 //            'role_id' => '2', #user role id
 //            'email' => 'man2@stnzn.ru',
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
 //            'department_id' => 2,
 //        ]);
 //
-//        User::create([
+//        UserComponent::create([
 //           'name' => 'man3',
 //           'role_id' => '2', #user role id
 //           'email' => 'man3@stnzn.ru',

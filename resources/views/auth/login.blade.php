@@ -6,9 +6,9 @@
             <div class="flex justify-center text-lg font-bold text-neutral-800">
                 Вход
             </div>
-            @if($errors)
+            @if($errors->any())
                 <div class="flex flex-row justify-center mb-2 w-full bg-red-100 rounded-md">
-                    <span class="text-red-600">
+                    <span class="text-red-600 p-2">
                         {{ $errors->first() }}
                     </span>
                 </div>
