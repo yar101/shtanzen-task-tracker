@@ -1,4 +1,4 @@
-<div class="relative overflow-x-auto border-gray-500/50 border rounded-xl">
+<div class="relative overflow-x-auto border-gray-500/50 shadow-xl border rounded-xl">
     <table class="w-full text-md text-gray-800">
         <thead class="text-xs text-gray-700 uppercase bg-blue-200 border-b border-b-blue-400/50 border-gray-500/50">
         <tr>
