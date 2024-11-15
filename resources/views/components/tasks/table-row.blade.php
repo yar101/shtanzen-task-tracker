@@ -1,24 +1,24 @@
-<tr {{ $attributes->merge(['class' => "text-gray-950 " . ($task->isParent() ? 'bg-neutral-100' : 'bg-neutral-300/50')]) }}>
+<tr {{ $attributes->merge(['class' => "text-gray-950 " . ($task->isParent() ? 'bg-white' : 'bg-neutral-300/70')]) }}>
 
     <th scope="row" class="task-status font-bold whitespace-nowrap text-center
                 {{
                     match ($task->status->name) {
-                        'NOT STARTED' => 'bg-gray-500/20',
-                        'ONGOING' => 'bg-blue-500/20',
-                        'ON HOLD' => 'bg-yellow-500/20',
-                        'DELAY' => 'bg-red-700/20',
-                        'DONE' => 'bg-green-500/20',
+                        'NOT STARTED' => 'bg-gray-200',
+                        'ONGOING' => 'bg-blue-200',
+                        'ON HOLD' => 'bg-yellow-200',
+                        'DELAY' => 'bg-red-200',
+                        'DONE' => 'bg-green-200',
                         }
                 }}
                 ">
-        <form action="{{ route('task.status-update', $task->id) }}" method="post" class="w-[100px]">
+        <form action="{{ route('task.status-update', $task->id) }}" method="post" class="w-[150px]">
             @csrf
             @method('PATCH')
-            <select name="status_id" onchange="this.form.submit()" class="p-2 bg-transparent cursor-pointer
+            <select name="status_id" onchange="this.form.submit()" class="bg-transparent cursor-pointer
                         {{
                             match ($task->status->name) {
                                 'NOT STARTED' => 'text-neutral-500',
-                                'ONGOING' => 'text-blue-600',
+                                'ONGOING' => 'text-blue-500',
                                 'ON HOLD' => 'text-yellow-700',
                                 'DELAY' => 'text-red-500',
                                 'DONE' => 'text-green-700',
@@ -40,9 +40,9 @@
     <td class="px-2 py-2 text-center w-[30px]
                 {{
                     match ($task->priority) {
-                        'I' => 'bg-red-500/40 text-red-900',
-                        'II' => 'bg-yellow-500/40 text-yellow-900',
-                        'III' => 'bg-green-500/40 text-green-900',
+                        'I' => 'bg-red-200 text-red-700',
+                        'II' => 'bg-yellow-200 text-yellow-700',
+                        'III' => 'bg-green-200 text-green-700',
                         }
  }}
                 ">

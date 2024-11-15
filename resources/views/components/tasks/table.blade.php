@@ -43,19 +43,23 @@
         <tbody>
         @foreach($tasks as $task)
             @if($task->subtasks()->count() > 0)
-                @if(!($loop->first))
-                    <tr class="separator-row">
-                        <td colspan="10" class="h-5 border-b border-t bg-transparent border-gray-500/50"></td>
-                    </tr>
-                @endif
+
+{{--                @if(!($loop->first))--}}
+{{--                    <tr class="separator-row">--}}
+{{--                        <td colspan="10" class="h-5 border-b border-t bg-transparent border-gray-500/50"></td>--}}
+{{--                    </tr>--}}
+{{--                @endif--}}
 
                 <x-tasks.table-row :task="$task" :statuses="$statuses" class="border-b border-gray-500/50"/>
+
                 @foreach($task->subtasks() as $subtask)
                     <x-tasks.table-row :task="$subtask" :statuses="$statuses" class="border-b border-gray-500/50"/>
                 @endforeach
+
                 <tr class="separator-row">
-                    <td colspan="10" class="h-5 bg-transparent border-b border-t border-gray-500/50"></td>
+                    <td colspan="10" class="h-10 bg-transparent border-b border-t border-gray-500/50"></td>
                 </tr>
+
             @elseif ($task->parent_id == null)
                 <x-tasks.table-row :task="$task" :statuses="$statuses" class="border-b border-gray-500/50"/>
             @endif

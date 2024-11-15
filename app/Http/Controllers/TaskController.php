@@ -152,6 +152,17 @@ class TaskController
 
         $task->update($attributes);
         $task->update(['locked_by' => null, 'locked_at' => null]);
+
+        if ($task->isParent()) {
+            foreach ($task->subtasks() as $subtask) {
+                if ($task->contractor_id != null) {
+                    $subtask->update(['contractor_id' => $task->contractor_id]);
+                } else {
+                    $subtask->update(['contractor_id' => null]);
+                }
+            }
+        }
+
         return redirect()->route('tasks');
     }
 
