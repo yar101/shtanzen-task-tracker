@@ -15,10 +15,10 @@
     </div>
 @endif
 
-<div {{ $attributes->merge(['class' => 'h-fit bg-neutral-800 rounded-md w-[500px] mx-auto', 'id' => 'edit-task-form']) }}>
+<div {{ $attributes->merge(['class' => 'h-fit bg-neutral-100 shadow-xl border border-neutral-500/50 rounded-md w-[500px] mx-auto', 'id' => 'edit-task-form']) }}>
     {{--            <button class="bg-blue-800 text-white p-1 rounded-md w-fit mb-5">Создать задачу</button>--}}
     <div
-        class=" flex flex-row align-middle gap-2 bg-neutral-700 border-t border-t-neutral-500/70 text-white rounded-md rounded-b-none mb-5 w-full p-1 text-center">
+        class=" flex flex-row align-middle gap-2 bg-neutral-300 border-t border-t-neutral-200/70 text-white rounded-md rounded-b-none mb-5 w-full p-1 text-center">
         <div class="bg-red-600/20 p-1 rounded-md">
             <a href="/tasks" class="text-red-500 text-lg font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
@@ -27,7 +27,8 @@
                 </svg>
             </a>
         </div>
-        <div class="text-center flex-grow content-center">Редактирование задачи № {{ $task->id }}</div>
+
+        <div class="text-center flex-grow content-center text-neutral-700">Редактирование задачи № {{ $task->id }}</div>
     </div>
     <form action="{{ route('task.update', $task->id ) }}" method="post" class="flex flex-col gap-2 p-3 w-full">
         @csrf
@@ -35,7 +36,7 @@
 
         @if($task->contractor_id == 1)
             <x-label for="contractor_id">Контрагент</x-label>
-            <select class="p-1 bg-neutral-700 rounded-md" name="contractor_id">
+            <select class="p-1 bg-neutral-100 border border-neutral-500/50 shadow-md rounded-md" name="contractor_id">
                 @foreach($contractors as $contractor)
                     <option
                         value="{{ $contractor->id }}" {{ $task->contractor_id == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
@@ -45,7 +46,7 @@
 
         @if(auth()->user()->role->name == 'head-of-department')
             <x-label for="manager_id">Менеджер</x-label>
-            <select class="p-1 bg-neutral-700 rounded-md" name="manager_id">
+            <select class="p-1 bg-neutral-100 border border-neutral-500/50 shadow-md rounded-md" name="manager_id">
                 @foreach($users as $user)
                     <option
                         value="{{ $user->id }}" {{ $task->manager_id == $user->id ? 'selected' : '' }}>{{ $user->name }}
@@ -59,7 +60,7 @@
 
         <x-label for="body">Описание</x-label>
         <textarea type="text" name="body"
-                  class="bg-neutral-700 p-2 rounded-md h-[100px]">{{ $task->body ?? old('body') }}</textarea>
+                  class="bg-neutral-100 border border-neutral-500/50 shadow-md p-2 rounded-md h-[100px]">{{ $task->body ?? old('body') }}</textarea>
 
         <x-label for="Дедлайн">Дедлайн</x-label>
         <x-input type="date" name="deadline_end"
@@ -69,7 +70,7 @@
             <x-label for="cost">Стоимость</x-label>
             <br>
             <x-input type="text" name="cost" value="{{ $task->cost ?? old('cost') }}"/>
-            <select class="p-1 bg-neutral-700 rounded-md" name="currency">
+            <select class="p-1 bg-neutral-100 border border-neutral-500/50 shadow-md rounded-md" name="currency">
                 <option value="RUB" {{ $task->currency == 'RUB' ? 'selected' : '' }}>RUB</option>
                 <option value="USD" {{ $task->currency == 'USD' ? 'selected' : '' }}>USD</option>
                 <option value="EUR" {{ $task->currency == 'EUR' ? 'selected' : '' }}>EUR</option>
@@ -79,7 +80,7 @@
         </div>
 
         <x-label for="priority">Приоритет</x-label>
-        <select class="p-1 bg-neutral-700 rounded-md" name="priority">
+        <select class="p-1 bg-neutral-100 border border-neutral-500/50 shadow-md rounded-md" name="priority">
             <option value="I" {{ $task->priority == 'I' ? 'selected' : '' }}>I</option>
             <option value="II" {{ $task->priority == 'II' ? 'selected' : '' }}>II</option>
             <option value="III" {{ $task->priority == 'III' ? 'selected' : '' }}>III</option>
