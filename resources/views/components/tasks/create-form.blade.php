@@ -19,13 +19,15 @@
                 @endforeach
             </select>
 
-            @if(auth()->user()->role->name == 'head-of-department')
+            @if(auth()->user()->role->name == 'head-of-department' && auth()->user()->role->name == 'admin')
                 <x-label for="manager_id">Менеджер</x-label>
                 <select class="p-1 bg-neutral-100 shadow-md border border-gray-500/50 rounded-md" name="manager_id">
                     @foreach($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
+            @elseif(auth()->user()->role->name == 'user')
+                <input type="hidden" value="{{ auth()->user()->id }}" name="manager_id">
             @endif
 
             <x-label for="title">Заголовок</x-label>

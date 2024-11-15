@@ -56,6 +56,7 @@ class TaskController
                 'priority' => ['required'],
                 'contractor_id' => ['nullable'],
                 'parent_id' => ['nullable'],
+                'manager_id' => ['required'],
             ]);
         } else if (auth()->user()->role->name == 'head-of-department') {
             $attributes = $request->validate([

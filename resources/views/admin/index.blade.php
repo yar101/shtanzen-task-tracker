@@ -22,12 +22,12 @@
                         Создать пользователя
                     </button>
 
-                    <form action="{{ route('admin.create-test-user') }}">
-                        <button type="submit"
-                            class="font-semibold px-8 border border-gray-500/30 py-1 bg-yellow-500/30 rounded hover:bg-blue-500/50 transition-all">
-                            Создать ТЕСТОВОГО пользователя
-                        </button>
-                    </form>
+{{--                    <form action="{{ route('admin.create-test-user') }}">--}}
+{{--                        <button type="submit"--}}
+{{--                            class="font-semibold px-8 border border-gray-500/30 py-1 bg-yellow-500/30 rounded hover:bg-blue-500/50 transition-all">--}}
+{{--                            Создать ТЕСТОВОГО пользователя--}}
+{{--                        </button>--}}
+{{--                    </form>--}}
 
                     <div class="flex flex-col gap-2 mt-3 max-h-96 overflow-y-scroll p-2">
                         @foreach($users as $user)

@@ -1,4 +1,4 @@
-<tr {{ $attributes->merge(['class' => "text-gray-950 " . ($task->isParent() ? 'bg-neutral-100' : 'bg-neutral-300')]) }}>
+<tr {{ $attributes->merge(['class' => "text-gray-950 " . ($task->isParent() ? 'bg-neutral-100' : 'bg-neutral-300/50')]) }}>
 
     <th scope="row" class="task-status font-bold whitespace-nowrap text-center
                 {{
