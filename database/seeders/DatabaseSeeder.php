@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Imports\UsersImportEqp;
 use App\Models\Comment;
 use App\Models\Contractor;
 use App\Models\Department;
@@ -13,6 +14,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
         # Departments
         Department::create(['name' => 'Без отдела']);
-        Department::create(['name' => 'Оборудование']);
+        Department::create(['name' => 'Инструменты']);
         Department::create(['name' => 'Логистика']);
 
         # Create admin
@@ -94,5 +96,14 @@ class DatabaseSeeder extends Seeder
 //        Contractor::factory(100)->create();
         # Comments
 //        Comment::factory(100)->create();
+
+        Excel::import(new UsersImportEqp, 'users_eqp.xlsx');
+        $users = User::all();
+
+        foreach ($users as $user) {
+            if ($user->name == 'Евгений') {
+                $user->update(['role_id' => 3]);
+            }
+        }
     }
 }

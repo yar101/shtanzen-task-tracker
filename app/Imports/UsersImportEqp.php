@@ -18,7 +18,8 @@ class UsersImportEqp implements ToModel
         return new User([
             'name' => $row[0],
             'email' => $row[1],
-            'password' => Hash::make('123'),
+            'password' => Hash::make('pass-eqp'),
+            'department_id' => 2,
         ]);
     }
 }
