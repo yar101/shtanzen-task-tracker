@@ -6,7 +6,7 @@ use App\Models\User;
 use Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class UsersImportEqp implements ToModel
+class UsersImportTools implements ToModel
 {
     /**
     * @param array $row
@@ -18,8 +18,9 @@ class UsersImportEqp implements ToModel
         return new User([
             'name' => $row[0],
             'email' => $row[1],
-            'password' => Hash::make('pass-eqp'),
+            'password' => Hash::make('pass-tools'),
             'department_id' => 2,
+            'role_id' => 1,
         ]);
     }
 }

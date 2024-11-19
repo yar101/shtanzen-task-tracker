@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Imports\UsersImportEqp;
+use App\Imports\ContractorsImportTools;
+use App\Imports\UsersImportTools;
 use App\Models\Comment;
 use App\Models\Contractor;
 use App\Models\Department;
@@ -88,16 +89,13 @@ class DatabaseSeeder extends Seeder
         Status::create(['name' => 'DONE']);
         Status::create(['name' => 'DELAY']);
 
-        # Test Tasks
-//        Task::factory(10)->create();
-
         # Null Contractor
         Contractor::create(['name' => 'Без контрагента']);
 //        Contractor::factory(100)->create();
         # Comments
 //        Comment::factory(100)->create();
 
-        Excel::import(new UsersImportEqp, 'users_eqp.xlsx');
+        Excel::import(new UsersImportTools, 'users_tools.xlsx');
         $users = User::all();
 
         foreach ($users as $user) {
@@ -105,5 +103,10 @@ class DatabaseSeeder extends Seeder
                 $user->update(['role_id' => 3]);
             }
         }
+
+        Excel::import(new ContractorsImportTools, 'contractors_tools.xlsx');
+
+        # Test Tasks
+        Task::factory(20)->create();
     }
 }

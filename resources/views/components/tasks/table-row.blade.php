@@ -58,7 +58,7 @@
         {{ $task->body }}
     </td>
     <td class="px-2 py-2 text-center">
-        {{ $task->deadline_start }}
+        {{ \Carbon\Carbon::createFromFormat($task->deadline_start, $task->deadline_start)->format('d.m.Y') }}
     </td>
 
     <td id="task-deadline-end" class="px-2 py-2 text-center">

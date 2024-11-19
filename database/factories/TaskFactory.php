@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Contractor;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,23 +20,26 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        $usersCount = User::all()->count();
+        $currencyVariants = ['RUB', 'USD', 'EUR', 'CNY'];
+        $priorityVariants = ['I', 'II', 'III'];
         return [
-                'title' => $this->faker->sentence(),
-                'body' => $this->faker->paragraph(2),
+                'title' => $this->faker->realText(30),
+                'body' => $this->faker->realText(50),
                 'status_id' => $this->faker->numberBetween(1, 5),
-                'created_by' => 1,
+                'created_by' => $this->faker->numberBetween(1, $usersCount),
                 'cost' => $this->faker->numberBetween(500, 100000),
                 'deadline_start' => now(),
                 'deadline_end' => $this->faker->dateTimeBetween(now(), Carbon::now()->addDays(30)),
-                'currency' => 'RUB',
-                'priority' => $this->faker->randomElement(['I', 'II', 'III']),
+                'currency' => $this->faker->randomElement($currencyVariants),
+                'priority' => $this->faker->randomElement($priorityVariants),
                 'created_at' => now(),
                 'parent_id' => null,
                 'updated_by' => null,
                 'updated_at' => null,
-                'contractor_id' => 1,
+                'contractor_id' => Contractor::all()->random()->id,
                 'department_id' => 2,
-                'manager_id' => $this->faker->randomElement(User::all()->pluck('id')->toArray()),
+                'manager_id' => $this->faker->numberBetween(1, $usersCount),
         ];
     }
 }
