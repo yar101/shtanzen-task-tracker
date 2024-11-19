@@ -32,6 +32,10 @@
             </th>
 
             <th scope="col" class="px-2 py-2 text-center">
+                Стоимость
+            </th>
+
+            <th scope="col" class="px-2 py-2 text-center">
                 Последний комментарий
             </th>
 
@@ -44,11 +48,11 @@
         @foreach($tasks as $task)
             @if($task->subtasks()->count() > 0)
 
-{{--                @if(!($loop->first))--}}
-{{--                    <tr class="separator-row">--}}
-{{--                        <td colspan="10" class="h-5 border-b border-t bg-transparent border-gray-500/50"></td>--}}
-{{--                    </tr>--}}
-{{--                @endif--}}
+                @if(!($loop->first))
+                    <tr class="separator-row">
+                        <td colspan="11" class="bg-blue-100 h-6 border-b border-gray-500/50"></td>
+                    </tr>
+                @endif
 
                 <x-tasks.table-row :task="$task" :statuses="$statuses" class="border-b border-gray-500/50"/>
 
@@ -57,7 +61,7 @@
                 @endforeach
 
                 <tr class="separator-row">
-                    <td colspan="10" class="h-10 bg-transparent border-b border-t border-gray-500/50"></td>
+                    <td colspan="11" class="h-6 bg-blue-100 border-b border-gray-500/50"></td>
                 </tr>
 
             @elseif ($task->parent_id == null)
