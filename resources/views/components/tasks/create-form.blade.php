@@ -12,16 +12,19 @@
 
             <input type="hidden" value="" name="parent_id">
 
+            <input type="hidden" value="" name="contractor_id">
+
             <x-label for="contractor_id">Контрагент</x-label>
-            <select class="p-1 bg-neutral-100 shadow-md border border-gray-500/50 rounded-md" name="contractor_id">
+
+            <select id="contractor-select" class="p-1 bg-neutral-100 shadow-md border border-gray-500/50 rounded-md" name="contractor_id">
                 @foreach($contractors as $contractor)
                     <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
                 @endforeach
             </select>
 
-            @if(auth()->user()->role->name == 'head-of-department' && auth()->user()->role->name == 'admin')
+            @if(auth()->user()->role->name == 'head-of-department' || auth()->user()->role->name == 'admin')
                 <x-label for="manager_id">Менеджер</x-label>
-                <select class="p-1 bg-neutral-100 shadow-md border border-gray-500/50 rounded-md" name="manager_id">
+                <select class="p-1 bg-neutral-100 shadow-md border border-gray-500/50 rounded-md disabled:cursor-not-allowed disabled:bg-neutral-200" name="manager_id">
                     @foreach($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach

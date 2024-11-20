@@ -126,7 +126,7 @@
 
             <button
                 class="border border-green-500/50 bg-green-100 hover:bg-green-200 transition-all p-1 hover:translate-y-[-2px] rounded-md h-9 w-9"
-                onclick="openCreateTaskModal('create-task-form', '{{ $task->id }}')">
+                onclick="openCreateTaskModal('create-task-form', '{{ $task->id }}', '{{ $task->contractor_id }}',  '{{ $task->manager_id }}', '{{ $task->title }}' )">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
