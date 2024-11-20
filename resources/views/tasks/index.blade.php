@@ -2,7 +2,7 @@
     <x-navbar/>
 
     <div class="py-20 px-10">
-        <x-tasks.filters :users="$users"/>
+        <x-tasks.filters :users="$users" :statuses="$statuses"/>
 
         <div id="tasks-wrapper" class="w-full justify-center gap-5">
 

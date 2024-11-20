@@ -27,8 +27,8 @@ class TaskController
 
         // Фильтрация по дате
         if ($request['filter-start-date'] && $request['filter-end-date']) {
-            $startDate = Carbon::parse($request['filter-start-date']);
-            $endDate = Carbon::parse($request['filter-end-date']);
+            $startDate = Carbon::parse($request['filter-start-date'])->format('d.m.Y');
+            $endDate = Carbon::parse($request['filter-end-date'])->format('d.m.Y');
             $tasks = $tasks->whereDate('deadline_end', '>=', $startDate)->whereDate('deadline_end', '<=', $endDate);
         } elseif (!$request['filter-start-date'] && $request['filter-end-date']) {
             $endDate = Carbon::parse($request['filter-end-date']);
@@ -37,6 +37,12 @@ class TaskController
             $startDate = Carbon::parse($request['filter-start-date']);
             $tasks = $tasks->whereDate('deadline_end', '>=', $startDate);
         }
+
+        // Фильтрация по статусу
+        if (empty($request['filter-statuses'])) {
+            $request['filter-statuses'] = [2, 3, 5];
+        }
+        $tasks = $tasks->whereIn('status_id', $request['filter-statuses']);
 
         // Получаем задачи с сортировкой
         $tasks = $tasks->orderBy('created_at')->get();

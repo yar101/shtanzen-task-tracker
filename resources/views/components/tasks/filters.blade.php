@@ -53,6 +53,8 @@
             <input type="date" name="filter-start-date" value="{{ request('filter-start-date') }}" class="p-1 bg-neutral-300 border border-gray-500/40 text-gray-600 shadow-md rounded-md" placeholder="Начальная дата">
             <input type="date" name="filter-end-date" value="{{ request('filter-end-date') }}" class="p-1 bg-neutral-300 border border-gray-500/40 text-gray-600 shadow-md rounded-md" placeholder="Конечная дата">
 
+            <x-tasks.filter-status :statuses="$statuses" />
+
             <button type="submit" class="p-1 px-6 shadow-md bg-amber-300 rounded-md text-gray-800 hover:bg-amber-400 transition-colors">
                 Отфильтровать
             </button>

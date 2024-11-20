@@ -58,7 +58,7 @@
         {{ $task->body }}
     </td>
     <td class="px-2 py-2 text-center">
-        {{ \Carbon\Carbon::createFromFormat($task->deadline_start, $task->deadline_start)->format('d.m.Y') }}
+        {{ date('d.m.Y', strtotime($task->deadline_start)) }}
     </td>
 
     <td id="task-deadline-end" class="px-2 py-2 text-center">
@@ -69,6 +69,17 @@
                    class="bg-transparent p-1 text-center border-none"
                    onblur="this.form.submit()">
         </form>
+    </td>
+
+    <td class="px-2 py-2 text-center">
+        @if($task->cost > 0)
+            <div class="flex flex-row gap-2">
+                <div class="">{{ number_format($task->cost, 2) }}</div>
+                <div class="">{{ $task->currency }}</div>
+            </div>
+        @else
+            -
+        @endif
     </td>
 
     <td class="px-2 py-2 text-center">
