@@ -55,7 +55,7 @@
             </select>
         @endif
 
-        <x-label for="title">Заголовок</x-label>
+        <x-label for="title">Тема</x-label>
         <x-input type="text" name="title" value="{{ $task->title ?? old('title') }}"/>
 
         <x-label for="body">Описание</x-label>

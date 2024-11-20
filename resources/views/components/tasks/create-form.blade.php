@@ -30,7 +30,7 @@
                 <input type="hidden" value="{{ auth()->user()->id }}" name="manager_id">
             @endif
 
-            <x-label for="title">Заголовок</x-label>
+            <x-label for="title">Тема</x-label>
             <x-input type="text" name="title" value="{{ old('title') }}"/>
 
             <x-label for="body">Описание</x-label>
